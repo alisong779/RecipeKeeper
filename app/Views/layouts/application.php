@@ -14,43 +14,42 @@
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg bg-dark navbar-dark p-3">
-        <div class="container">
-            <a href="#" class="navbar-brand">Recipe Keeper</a>
+        <a href="#" class="navbar-brand">Recipe Keeper</a>
+        <div class="collapse navbar-collapse" id="navmenu">
+            <?php if (session()->get('isLoggedIn')) : ?>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/profile">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/recipes">Browse Recipes</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                </ul>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navmenu">
-                <?php if (session()->get('isLoggedIn')) : ?>
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/profile">Profile</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/recipes">Browse Recipes</a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav my-2 my-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/logout">Logout</a>
-                        </li>
-                    </ul>
-                <?php else : ?>
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/register">Register</a>
-                        </li>
-                    </ul>
-                <?php endif; ?>
-            </div>
+            <?php else : ?>
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register">Register</a>
+                    </li>
+                </ul>
+            <?php endif; ?>
         </div>
+
     </nav>
     <div class="container py-5">
-        <?= $this->renderSection('content'); ?>
+        <div class="row">
+            <div class="col-12">
+                <?= $this->renderSection('content'); ?>
+            </div>
+        </div>
     </div>
 
 

@@ -77,8 +77,8 @@ class Users extends BaseController
     {
         $data = [
             'id' => $user['id'],
-            'firstname' => $user['first_name'],
-            'lastname' => $user['last_name'],
+            'first_name' => $user['first_name'],
+            'last_name' => $user['last_name'],
             'email' => $user['email'],
             'isLoggedIn' => true,
         ];
@@ -129,10 +129,10 @@ class Users extends BaseController
     }
 
 
-    public function profile()
+    /*public function profile()
     {
         $session = session();
-        $item = $session->get('first_name');
+        $item = $session->get('firstname');
         $data = [
             'first_name' => $item,
         ];
@@ -141,7 +141,9 @@ class Users extends BaseController
         helper(['form']);
         $session->set($data); // setting session data
 
-    }
+
+
+    }*/
 
     public function logout()
     {

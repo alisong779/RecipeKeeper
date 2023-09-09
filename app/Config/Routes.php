@@ -34,10 +34,9 @@ $routes->match(['get', 'post'], '/', 'Users::index', ['filter' => 'noauth']);
 $routes->match(['get', 'post'], 'register', 'Users::register', ['filter' => 'noauth']);
 $routes->get('logout', 'Users::logout');
 $routes->get('home', 'Home::index', ['filter' => 'auth']);
-$routes->get('profile', 'Users::profile', ['filter' => 'auth']);
 $routes->get('recipes', 'Recipes::index', ['filter' => 'auth']);
 $routes->match(['get', 'post'], 'recipes/add', 'Recipes::add', ['filter' => 'auth']);
-
+$routes->match(['get', 'post'], 'profile', 'Profile::index', ['filter' => 'auth']);
 /*
  * --------------------------------------------------------------------
  * Additional Routing

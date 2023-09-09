@@ -16,10 +16,9 @@
         <div class="col-4">
             <a href="<?php base_url() ?>recipes/add" class="btn btn-primary">Add a Recipe</a>
         </div>
-        <div class="col-4">
-            Feed
-        </div>
+
     </div>
+
 </div>
 
 
