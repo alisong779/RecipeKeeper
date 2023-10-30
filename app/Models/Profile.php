@@ -13,11 +13,26 @@ class Profile extends Model
     protected $protectFields        = true;
     protected $allowedFields        = ['user_id', 'img_location', 'updated_at'];
 
-    //protected $beforeInsert = ['beforeInsert'];
-    //protected $beforeUpdate = ['beforeUpdate'];
+    protected $beforeInsert = ['beforeInsert'];
+    protected $beforeUpdate = ['beforeUpdate'];
 
-    //public function get_profile_img($id) {
-    //$qry = 'SELECT img_location FROM recipekeeper.images where user_id = 57;';
+    // Dates
+    protected $useTimestamps        = false;
+    protected $dateFormat           = 'datetime';
+    protected $createdField         = 'created_at';
+    protected $updatedField         = 'updated_at';
 
-    //}
+
+    protected function beforeInsert(array $data)
+    {
+        $data['data']['created_at'] = date('Y-m-d H:i:s');
+
+        return $data;
+    }
+
+    protected function beforeUpdate(array $data)
+    {
+        $data['data']['updated_at'] = date('Y-m-d H:i:s');
+        return $data;
+    }
 }

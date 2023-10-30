@@ -2,8 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Models\User;
-use App\Libraries\Hash;
 use App\Models\Image;
 
 class Profile extends BaseController
@@ -57,6 +55,7 @@ class Profile extends BaseController
                     ];
                     $imageModel->save($img_data);
                 }
+                $session->setFlashdata('success', 'Success. Uploaded!');
                 return redirect()->to(base_url('profile'));
             } else {
                 $data['validation'] = $this->validator;

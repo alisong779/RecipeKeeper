@@ -52,22 +52,11 @@ class Users extends BaseController
                     return redirect()->to('/');
                 } else {
                     $userId = $userInfo['id'];
-
-                    //session()->set('loggedInUser', $userId);
+                    session()->setFlashdata('success', 'Lets get cooking!');
                     $this->setUserSession($userInfo);
                     return redirect()->to('/profile');
                 }
             }
-
-            //$model = new User();
-
-            //$user = $model->where('email', $this->request->getVar('email'))
-            //->first();
-
-
-            //$this->setUserSession($user);
-            //return redirect()->to('/profile');
-            //}
         }
         return view('users/login', $data);
     }
@@ -128,22 +117,6 @@ class Users extends BaseController
         }
     }
 
-
-    /*public function profile()
-    {
-        $session = session();
-        $item = $session->get('firstname');
-        $data = [
-            'first_name' => $item,
-        ];
-        return view('users/profile', $data);
-
-        helper(['form']);
-        $session->set($data); // setting session data
-
-
-
-    }*/
 
     public function logout()
     {

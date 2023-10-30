@@ -1,11 +1,23 @@
+<?= $this->extend('layouts/application'); ?>
+<?= $this->section('content'); ?>
+
 <div class="container">
-    <h1>Add a Recipe</h1>
-    <div class="row">
-        <div class="col-6">
-            <input type="text" class="form-control" placeholder="Recipe Title" aria-label="Recipe Title">
+    <div class="card card-dark">
+        <div class="card-header">
+            <h1>Your Recipes</h1>
         </div>
-        <div class="col-6">
-            <input type="text" class="form-control" placeholder="Description" aria-label="Description">
+        <div class="card-body">
+            <?php foreach ($recipes as $r) {
+                echo '<a href="recipes/view/' . $r->id . '" class="link">' . $r->recipe_name . '</a><br>';
+            } ?>
+
+
         </div>
+
     </div>
+
+
 </div>
+
+</div>
+<?= $this->endSection() ?>
