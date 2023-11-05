@@ -12,6 +12,7 @@
             <p>Recipe Description:<?php echo $recipe['recipe_desc'] ?></p>
             <p>Created At:<?php echo $recipe['created_at'] ?></p>
             <a class="nav-link" href="/recipes/edit_recipe/<?php echo $recipe['id'] ?>">Edit</a>
+            <a class="nav-link" href="/recipes">My Recipes</a>
 
 
         </div>

@@ -36,13 +36,40 @@
             </div>
             <div class="card-footer">
                 <button type="submit" class="btn btn-primary">Submit</button>
+                <a href="/recipes/add_ingredients/<?php echo $recipe['id'] ?>" class="btn btn-primary my-2">Add Ingredients</a>
             </div>
         </form>
 
+        <div class="card card-dark">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <card-header>
+                            List of Ingredients
+                            <a href="/recipes/edit_ingredients/<?php echo $recipe['id'] ?>" class="btn btn-success my-2">Edit Ingredients</a>
+                        </card-header>
+                        <table class="table table-bordered table-responsive ">
 
-
+                            <thead>
+                                <tr>
+                                    <th>Ingredient</th>
+                                    <th>Amount</th>
+                                    <th>Measure</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($ingredients as $i) {
+                                    echo '<tr><td>' . $i->ing_name . '</td>';
+                                    echo '<td>' . $i->qty . '</td>';
+                                    echo '<td>' . $i->measure . '</td></tr>';
+                                } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
-
 </div>
 <?= $this->endSection() ?>

@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\Image;
 use App\Models\Recipe;
+use App\Models\Ingredient;
 
 class Recipes extends BaseController
 {
@@ -49,7 +50,7 @@ class Recipes extends BaseController
                 $data['validation'] = $this->validator;
                 return view('recipes/add', $data);
             } else {
-                $model = new Recipe();
+                $recipe = new Recipe();
                 $post_data = [
                     'recipe_name' => $this->request->getPost('recipe_name'),
                     'recipe_desc' => $this->request->getPost('recipe_desc'),
@@ -58,9 +59,10 @@ class Recipes extends BaseController
                     'created_by' => $user_id,
                 ];
 
-                $model->save($post_data);
+                $recipe->save($post_data);
                 $session->setFlashdata('success', 'Success. Added!');
-                return redirect()->to(base_url('recipes/add_ingredients'));
+                $recipe_id = $recipe->getInsertID();
+                return redirect()->to(base_url('recipes/add_ingredients/' . $recipe_id . ''));
             }
         }
     }
@@ -68,8 +70,41 @@ class Recipes extends BaseController
     public function add_ingredients()
     {
         $data = ['title' => 'Add Ingredients'];
+        helper('form');
+        $session = session();
+        $uri = $this->request->getUri();
+        $user_id = $session->get('id');
+        $recipe_id = $uri->getSegment(3);
+        $data['recipe_id'] = $recipe_id;
+        if (!$this->request->is('post')) {
+            return view('recipes/add_ingredients', $data);
+        } else {
 
-        return view('recipes/add_ingredients', $data);
+            //validation
+            $rules = [
+                'ing_name' => 'required'
+            ];
+
+            if (!$this->validate($rules)) {
+                $data['validation'] = $this->validator;
+                $data['recipe_id'] = $recipe_id;
+                return view('recipes/add_ingredients/' . $recipe_id . '', $data);
+            } else {
+                $data['recipe_id'] = $recipe_id;
+                $ingredient = new Ingredient();
+                $post_data = [
+                    'ing_name' => $this->request->getPost('ing_name'),
+                    'qty' => $this->request->getPost('qty'),
+                    'measure' => $this->request->getPost('measure'),
+                    'recipe_id' => $recipe_id,
+                    'created_by' => $user_id,
+                ];
+
+                $ingredient->save($post_data);
+                $session->setFlashdata('success', 'Success. Added Ingredients!');
+                return redirect()->to(base_url('recipes/add_ingredients/' . $recipe_id . ''));
+            }
+        }
     }
 
     public function view($id)
@@ -87,8 +122,10 @@ class Recipes extends BaseController
     {
         $recipes = new Recipe();
         $recipe = $recipes->find($id);
-        //var_dump($recipe);
         $data['recipe'] = $recipe;
+        $ingredient = new Ingredient();
+        $ingredients = $ingredient->get_ingredients($id);
+        $data['ingredients'] = $ingredients;
         return view('recipes/edit_recipe', $data);
     }
 

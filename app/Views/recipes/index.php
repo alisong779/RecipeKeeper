@@ -4,7 +4,7 @@
 <div class="container">
     <div class="card card-dark">
         <div class="card-header">
-            <h1>Your Recipes</h1>
+            <h1>Your Recipes</h1><a href="recipes/add" class="btn btn-primary my-2">Add a Recipe</a>
         </div>
         <div class="card-body">
             <?php foreach ($recipes as $r) {

@@ -37,9 +37,8 @@ $routes->get('home', 'Home::index', ['filter' => 'auth']);
 $routes->get('recipes', 'Recipes::index', ['filter' => 'auth']);
 $routes->match(['get', 'post'], 'recipes/add', 'Recipes::add', ['filter' => 'auth']);
 $routes->match(['get', 'post'], 'profile', 'Profile::index', ['filter' => 'auth']);
-$routes->match(['get', 'post'], 'recipes/add_ingredients', 'Recipes::add_ingredients', ['filter' => 'auth']);
+$routes->match(['get', 'post'], 'recipes/add_ingredients/(:num)', 'Recipes::add_ingredients/$1', ['filter' => 'auth']);
 $routes->get('recipes/view/(:num)', 'Recipes::view/$1', ['filter' => 'auth']);
-//$routes->match(['get', 'post'], 'recipes/edit_recipe/(:num)', 'Recipes::edit_recipe/$1', ['filter' => 'auth']);
 $routes->get('recipes/edit_recipe/(:num)', 'Recipes::edit_recipe/$1', ['filter' => 'auth']);
 $routes->post('recipes/update/(:num)', 'Recipes::update/$1', ['filter' => 'auth']);
 
