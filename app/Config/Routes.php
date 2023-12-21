@@ -41,7 +41,7 @@ $routes->match(['get', 'post'], 'recipes/add_ingredients/(:num)', 'Recipes::add_
 $routes->get('recipes/view/(:num)', 'Recipes::view/$1', ['filter' => 'auth']);
 $routes->get('recipes/edit_recipe/(:num)', 'Recipes::edit_recipe/$1', ['filter' => 'auth']);
 $routes->post('recipes/update/(:num)', 'Recipes::update/$1', ['filter' => 'auth']);
-
+$routes->match(['get', 'post'], 'recipes/add_directions/(:num)', 'Recipes::add_directions/$1', ['filter' => 'auth']);
 
 /*
  * --------------------------------------------------------------------

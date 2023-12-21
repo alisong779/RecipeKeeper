@@ -37,6 +37,8 @@
             <div class="card-footer">
                 <button type="submit" class="btn btn-primary">Submit</button>
                 <a href="/recipes/add_ingredients/<?php echo $recipe['id'] ?>" class="btn btn-primary my-2">Add Ingredients</a>
+                <a href="/recipes/add_directions/<?php echo $recipe['id'] ?>" class="btn btn-primary my-2">Add Directions</a>
+
             </div>
         </form>
 

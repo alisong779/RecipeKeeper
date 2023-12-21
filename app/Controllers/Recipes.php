@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\Image;
 use App\Models\Recipe;
+use App\Models\Direction;
 use App\Models\Ingredient;
 
 class Recipes extends BaseController
@@ -158,6 +159,51 @@ class Recipes extends BaseController
                 $model->update($id, $post_data);
                 $session->setFlashdata('success', 'Success. Added!');
                 return redirect()->to(base_url('recipes/view/' . $id));
+            }
+        }
+    }
+
+    public function add_directions()
+    {
+        $data = ['title' => 'Add Directions'];
+        helper('form');
+        $session = session();
+        $uri = $this->request->getUri();
+        $user_id = $session->get('id');
+        $recipe_id = $uri->getSegment(3);
+        $data['recipe_id'] = $recipe_id;
+        $direction = new Direction();
+        $steps = $direction->get_directions($recipe_id);
+        $data['steps'] = $steps;
+        $ingredient = new Ingredient();
+        $ingredients = $ingredient->get_ingredients($recipe_id);
+        $data['ingredients'] = $ingredients;
+
+        if (!$this->request->is('post')) {
+            return view('recipes/add_directions', $data);
+        } else {
+
+            //validation
+            $rules = [
+                'instructions' => 'required'
+            ];
+
+            if (!$this->validate($rules)) {
+                $data['validation'] = $this->validator;
+                $data['recipe_id'] = $recipe_id;
+                return view('recipes/add_directions/' . $recipe_id . '', $data);
+            } else {
+                $data['recipe_id'] = $recipe_id;
+                $direction = new Direction();
+                $post_data = [
+                    'instructions' => $this->request->getPost('instructions'),
+                    'recipe_id' => $recipe_id,
+                    'created_by' => $user_id,
+                ];
+
+                $direction->save($post_data);
+                $session->setFlashdata('success', 'Success. Added Step!');
+                return redirect()->to(base_url('recipes/add_directions/' . $recipe_id . ''));
             }
         }
     }
